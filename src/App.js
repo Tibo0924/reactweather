@@ -24,10 +24,9 @@ class App extends Component {
     e.preventDefault();
     // get name of input values
     const city = e.target.elements.city.value;
-    const country = e.target.elements.country.value;
-    if (city && country) {
+    if (city) {
       const api_call = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
       );
       const data = await api_call.json();
       console.log(data)
@@ -35,7 +34,6 @@ class App extends Component {
         this.setState({
           temperature: data.main.temp,
           city: data.name,
-          country: data.sys.country,
           humidity: data.main.humidity,
           description: data.weather[0].description,
           error: ""
@@ -44,17 +42,15 @@ class App extends Component {
         this.setState({
           temperature: null,
           city: null,
-          country: null,
           humidity: null,
           description: null,
-          error: `There is no ${city} in ${country}`
+          error: `There is no ${city} `
         });
       }
     } else {
       this.setState({
         temperature: null,
         city: null,
-        country: null,
         humidity: null,
         description: null,
         error: "Please enter a value!"
@@ -64,9 +60,7 @@ class App extends Component {
 
   getImages = () => {
     const query = this.state.city;
-    const country = this.state.country;
-    const background = `https://source.unsplash.com/1600x900/?${query},${country}`;
-    document.body.background = background;
+    const background = `https://source.unsplash.com/1600x900/?${query}`;
     
   };
 
@@ -74,14 +68,13 @@ class App extends Component {
     return (
       <div className="App">
         <Title />
-        <Form getWeather={this.getWeather} />
         <Weather
           temperature={this.state.temperature}
           city={this.state.city}
-          country={this.state.country}
           humidity={this.state.humidity}
           error={this.state.error}
         />
+        <Form getWeather={this.getWeather} />
       </div>
     );
   }
