@@ -15,7 +15,9 @@ class App extends Component {
     country: null,
     humidity: null,
     description: null,
-    error: null
+    error: null,
+    isHidden: true,
+    // image: null,
   };
   // custom method for API call
 
@@ -53,21 +55,21 @@ class App extends Component {
         city: null,
         humidity: null,
         description: null,
+        image: null,
         error: "Please enter a value!"
       });
     }
   };
-
-  getImages = () => {
-    const query = this.state.city;
-    const background = `https://source.unsplash.com/1600x900/?${query}`;
-    
-  };
-
+  getImages(){
+    this.setState({
+      isHidden: false,
+    })
+  }
+  
   render() {
     return (
       <div className="App">
-        <Title />
+        {this.state.isHidden && <Title/>}
         <Weather
           temperature={this.state.temperature}
           city={this.state.city}
