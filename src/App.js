@@ -17,6 +17,7 @@ class App extends Component {
     description: null,
     error: null,
     isHidden: true,
+    curTime: null,
     // image: null,
   };
   // custom method for API call
@@ -65,11 +66,18 @@ class App extends Component {
       isHidden: false,
     })
   }
+  componentWillMount() {
+    setInterval(function () {
+      this.setState({
+        curTime: new Date().toLocaleTimeString()
+      })
+    }.bind(this), 1000);
+  }
   
   render() {
     return (
       <div className="App">
-        {this.state.isHidden && <Title/>}
+        {this.state.isHidden && <Title curTime={this.state.curTime}/>}
         <Weather
           temperature={this.state.temperature}
           city={this.state.city}

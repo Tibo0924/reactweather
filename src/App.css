@@ -2,19 +2,35 @@
   /* background-color: wheat; */
 }
 .App{
+  color: whitesmoke;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
   border-radius: 5%;
   width: 220px;
-  text-shadow: black;
-  height: 330px;
-  background-color: #52B3D9;
+  text-shadow: 2px 2px 4px #000000;
+  height: 350px;
+  /* background-color: #52B3D9; */
   -webkit-box-shadow: 9px 10px 20px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 9px 10px 20px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 9px 10px 20px 0px rgba(0, 0, 0, 0.75);
-  font-size: 10pt;
+  font-size: 9pt;
+  background:url('./background/widgetBackground.jpeg') center;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover
+}
+ h1{
+  padding-left: 1rem;
+}
+.time{
+  text-align: right;
+  padding-right: 1rem;
+  font-size: 15pt;
+}
+.form span:first-of-type{
+  padding-left: 7rem;
 }
 .weatherConditions{
   font-size: 12pt;
@@ -22,17 +38,21 @@
 .weatherConditions p:nth-of-type(2n){
   margin-left: 1rem;
 }
+.weatherConditions p:nth-of-type(3n){
+  margin-left: 4rem;
+}
 
 .temp{
-  font-size: 13pt;
-  color: white;
+  font-size: 14pt;
+  color: tomato;
+
 }
 .cityName{
   color: tomato;
   font-size: 18pt;
 }
-.form span:first-of-type {
-  margin-left: 0.8rem;
+span{
+  margin-left: 0.7rem;
 }
 .rtl{
   display: block;
@@ -42,7 +62,7 @@ input:first-of-type{
   
 }
 input[type=text],
-textarea {
+textarea  {
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
@@ -50,18 +70,29 @@ textarea {
   outline: none;
   padding: 3px 0px 3px 0px;
   margin: 5px 1px 3px 5rem;
-  border: 1px solid #DDDDDD;
+  border: 0;
+  border-bottom: 2px solid #1976D2;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  /* text-align: center; */
+  background: transparent;
+  color: #BBDEFB;
   
 }
 input[type=text]:focus,
 textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 0px;
-  border: 1px solid #5cbf2a;
   margin-top: .4rem ;
-  margin-bottom: .4rem;
+  outline: 0;
 }
-
+::placeholder {
+  color:white;
+  opacity: 0.5;
+  font-size: 1em;
+  font-family:'Merienda', cursive;
+}
 @import url('https://fonts.googleapis.com/css?family=Merienda');
 body {
   font-family: 'Merienda', cursive;
