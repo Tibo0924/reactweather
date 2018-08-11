@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Title from './component/Title';
-import Form from './component/Form';
-import Weather from './component/Weather';
+import Title from './component/Header/Title';
+import Form from './component/Header/Form';
+import Weather from './component/Body/Weather';
 import './App.css';
-// import Forecast from './component/Forecast'
 
 const API_KEY = "e3a7c7ce72b0e8bcd9f70694cbfea8cf";
 
@@ -21,7 +20,7 @@ class App extends Component {
       curTime: null
     };
   }
-
+//
   getWeather2 = e => {
     e.preventDefault();
     const city = e.target.elements.city.value;
@@ -63,6 +62,7 @@ class App extends Component {
       showTitle: false
     });
   }
+
   componentWillMount() {
     setInterval(
       function() {
@@ -84,7 +84,7 @@ class App extends Component {
           humidity={this.state.humidity}
           error={this.state.error}
         />
-        <Form getWeather={this.getWeather2} />
+        {this.state.showTitle && <Form getWeather={this.getWeather} />}
       </div>
     );
   }
