@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import Title from './component/Header/Title';
-import Form from './component/Header/Form';
-import Weather from './component/Body/Weather';
+import QuoteComp from './component/QuoteComponent/';
+import LocationComp from './component/LocationComponent/';
+import TodaysComp from './component/TodaysComponent/';
+import ForecastComponent from './component/ForecastComponent'
 import './App.css';
 
 const API_KEY = "e3a7c7ce72b0e8bcd9f70694cbfea8cf";
@@ -16,12 +17,11 @@ class App extends Component {
       humidity: null,
       description: null,
       error: null,
-      showTitle: true,
       curTime: null
     };
   }
 //
-  getWeather2 = e => {
+  getWeather = e => {
     e.preventDefault();
     const city = e.target.elements.city.value;
     fetch(
@@ -50,18 +50,12 @@ class App extends Component {
         city: null,
         humidity: null,
         description: null,
-        showTitle: false,
         error: `There is no ${city} `
       });
     }
     console.log(data)
   };
 
-  ShowTitle() {
-    this.setState({
-      showTitle: false
-    });
-  }
 
   componentWillMount() {
     setInterval(
@@ -77,14 +71,12 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {this.state.showTitle && <Title curTime={this.state.curTime} />}
-        <Weather
-          temperature={this.state.temperature}
-          city={this.state.city}
-          humidity={this.state.humidity}
-          error={this.state.error}
-        />
-        {this.state.showTitle && <Form getWeather={this.getWeather} />}
+        <div className="top-row">
+          <LocationComp getWeather={this.getWeather} />
+          <QuoteComp curTime={this.state.curTime} />
+          <TodaysComp temperature={this.state.temperature} city={this.state.city} humidity={this.state.humidity} error={this.state.error}/>
+        </div>
+       <ForecastComponent />
       </div>
     );
   }
