@@ -12,7 +12,6 @@ const LocationComp = props => (
           <input type="text" name="city" placeholder="city" />
         </form>
         <button className="toggleButton" onClick={props.getPermission}></button>
-
       </div>
     )
 

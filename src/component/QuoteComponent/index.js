@@ -9,7 +9,7 @@ class QuoteComp extends React.Component {
     this.state = {
       curTime: null,  
       quote: null,
-
+      title: null,
     }
   }
 
@@ -22,6 +22,7 @@ class QuoteComp extends React.Component {
     console.log(data)
     this.setState({
       quote: data[0].content,
+      title: data[0].title,
     })
   }
   // APi Call for  quotes
@@ -56,6 +57,7 @@ render() {
           dangerouslySetInnerHTML={{__html: this.state.quote}}
           >
         </div>
+          <p>{this.state.title}</p>
       </div>
   ) }
 

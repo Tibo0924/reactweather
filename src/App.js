@@ -82,7 +82,13 @@ class App extends Component {
     }
     console.log(data)
   };
-
+  // createHTML = (data) => {
+  //   data.map(elem,i) => 
+    
+  //   `<div>
+  //     <p>${elem.list[i].main.temp}</p>
+  //   </div>`
+  // }
 
 
   componentDidMount(){

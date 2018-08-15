@@ -1,5 +1,12 @@
 .QuoteComponent {
-  background-color: greenyellow;
-  width: 30%;
+  width: 33%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8pt;
+}
+.quoteContainer{
+  align-items: center;
 }

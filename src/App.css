@@ -15,7 +15,6 @@ body {
   justify-content: center;
   overflow: scroll;
   flex-wrap: wrap;
-  align-items: center;
   width: 500px;
   text-shadow: 2px 2px 4px #000000;
   height: 370px;
@@ -24,6 +23,7 @@ body {
   -moz-box-shadow: 9px 10px 20px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 9px 10px 20px 0px rgba(0, 0, 0, 0.75);
   font-size: 9pt;
+  padding: auto;
   background: url("./background/widgetBackground.jpeg") center;
   background-position: center;
   background-repeat: no-repeat;
@@ -58,4 +58,5 @@ body {
   font-family: 'Merienda', cursive; }
 
 .top-row {
-  display: flex; }
+  display: flex;
+  height: 65%; }
