@@ -1,9 +1,7 @@
-import React from 'react' ;
+import React, { Component } from 'react' ;
 import './style.css'
 
-
-
-class QuoteComp extends React.Component {
+class QuoteComp extends Component {
   constructor(props) {
     super(props) 
     this.state = {
@@ -13,30 +11,18 @@ class QuoteComp extends React.Component {
     }
   }
 
-
-
-  
-
-  // handleQuote
-  handleQuote = (data) => {
-    console.log(data)
-    this.setState({
-      quote: data[0].content,
-      title: data[0].title,
-    })
-  }
-  // APi Call for  quotes
   componentDidMount() {
-    fetch (`
-        https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1`
-    )
-    .then(data => data.json())
-    .then(data => this.handleQuote(data))
-
+    this.fetchQuote()
+    this.updateTime()
   }
-  
 
-  componentWillMount() {
+  fetchQuote = () => (
+    fetch('https://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1')
+      .then(data => data.json())
+      .then(data => this.handleQuote(data))
+  )
+
+  updateTime = () => {
     setInterval(
       function() {
         this.setState({
@@ -47,9 +33,15 @@ class QuoteComp extends React.Component {
     );
   }
 
+  handleQuote = (data) => {
+    this.setState({
+      quote: data[0].content,
+      title: data[0].title,
+    })
+  }
 
-render() {
-  return ( 
+  render() {
+    return ( 
       <div className="QuoteComponent">
         <h2>{this.state.curTime}</h2>
         <div 
@@ -58,9 +50,10 @@ render() {
           >
         </div>
           <p>{this.state.title}</p>
+          <button onClick={this.fetchQuote}>Fetch new</button>
       </div>
-  ) }
-
-  
+    )
+  }  
 }
+
 export default QuoteComp;
