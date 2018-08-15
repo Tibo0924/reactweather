@@ -14,6 +14,7 @@ class ForecastComponent extends React.Component {
     }
     
     
+    
     getForecast = (latitude, longitude) => {
       fetch(
           `https://api.openweathermap.org/data/2.5/forecast?${latitude}&${longitude}&appid=e3a7c7ce72b0e8bcd9f70694cbfea8cf`
@@ -22,15 +23,6 @@ class ForecastComponent extends React.Component {
         .then(data => console.log(data));
     }
 
-    // handlePos = position => {
-    //   let latitude = position.coords.latitude;
-    //   let longitude = position.coords.longitued;
-    //   console.log(latitude,longitude)
-    // }
-
-    // componentDidMount(){
-    //     navigator.geolocation.getCurrentPosition(handlePos)
-    // }
     
     render() {
       return (

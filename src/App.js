@@ -9,7 +9,7 @@ const API_KEY = "e3a7c7ce72b0e8bcd9f70694cbfea8cf";
 
 class App extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
       temperature: null,
       city: null,
@@ -17,15 +17,44 @@ class App extends Component {
       humidity: null,
       description: null,
       error: null,
-      curTime: null
+      latitude: null, 
+      longitude: null,
+      forecast: {
+        temp: null,
+        date: null,
+        description: null,
+        icon: null,
+      }
     };
   }
-//
+// getGeoLocation from browser
+  getPermission = () => {
+    const location = window.navigator && window.navigator.geolocation
+
+    if (location){
+      location.getCurrentPosition(function (position) {
+          let latitude = position.coords.latitude;
+          let longitude= position.coords.longitude;
+          console.log(latitude);
+          console.log(longitude);
+          this.setState({
+             latitude: latitude, 
+             longitude: longitude
+          }); 
+      }.bind(this)); 
+    }    
+}
+
+
+
+ 
+
+  
   getWeather = e => {
     e.preventDefault();
     const city = e.target.elements.city.value;
     fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=metric`
     )
       .then(data => data.json())
       .then(data => this.handleResponse(data, city))
@@ -33,18 +62,16 @@ class App extends Component {
     };
     
     handleResponse = (data, city) => {
-      if (data.cod === 200) {
-        this.setState(
-          {
-            temperature: data.main.temp,
-            city: data.name,
-            humidity: data.main.humidity,
-            description: data.weather[0].description,
-            error: ""
+      if (data.cod === '200') {
+        this.setState({
+          city: data.city.name,
+          temperature: data.list[0].main.temp,
+          humidity: data.list[0].main.humidity,
+          description: data.list[0].weather[0].main,
+          error: "",
           },
-        this.ShowTitle()
       );
-    } else {
+    }else {
       this.setState({
         temperature: null,
         city: null,
@@ -57,24 +84,26 @@ class App extends Component {
   };
 
 
-  componentWillMount() {
-    setInterval(
-      function() {
-        this.setState({
-          curTime: new Date().toLocaleTimeString()
-        });
-      }.bind(this),
-      1000
-    );
+
+  componentDidMount(){
+    this.getPermission()
   }
 
   render() {
     return (
       <div className="App">
         <div className="top-row">
-          <LocationComp getWeather={this.getWeather} />
-          <QuoteComp curTime={this.state.curTime} />
-          <TodaysComp temperature={this.state.temperature} city={this.state.city} humidity={this.state.humidity} error={this.state.error}/>
+          <LocationComp 
+            getWeather={this.getWeather}
+            curTime={this.state.curTime}
+             />
+          <QuoteComp />
+          <TodaysComp 
+            temperature={this.state.temperature}
+            city={this.state.city}
+            humidity={this.state.humidity}
+            error={this.state.error}
+          />
         </div>
        <ForecastComponent />
       </div>
