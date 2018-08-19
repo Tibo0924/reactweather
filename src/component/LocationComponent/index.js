@@ -33,11 +33,12 @@ class LocationComp extends Component {
   render() {
     return (
         <div className="LocationComp">
-          <p> Enter a city  <span>name</span> </p><hr/>
           <form onSubmit={this.props.getWeather}>
             <input type="text" name="city" placeholder="city" />
+            <p>or check your current location</p>
+            <button type="submit">Click here</button>
           </form>
-          <button className="toggleButton" onClick={this.getPermission}>Submit</button>
+          <button className="toggleButton" onClick={this.getPermission}>Check</button>
         </div>
       )
     }
