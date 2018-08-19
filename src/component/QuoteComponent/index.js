@@ -43,7 +43,7 @@ class QuoteComp extends Component {
   render() {
     return ( 
       <div className="QuoteComponent">
-        <h2>{this.state.curTime}</h2>
+        <p className="time">{this.state.curTime}</p>
         <div 
           className="quoteContainer" 
           dangerouslySetInnerHTML={{__html: this.state.quote}}
