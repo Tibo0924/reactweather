@@ -13,11 +13,10 @@ body {
   color: whitesmoke;
   display: flex;
   justify-content: center;
-  overflow: scroll;
   flex-wrap: wrap;
-  width: 500px;
+  width: 100vw;
   text-shadow: 2px 2px 4px #000000;
-  height: 370px;
+  height: 600px;
   /* background-color: #52B3D9; */
   -webkit-box-shadow: 9px 10px 20px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 9px 10px 20px 0px rgba(0, 0, 0, 0.75);
@@ -59,4 +58,5 @@ body {
 
 .top-row {
   display: flex;
-  height: 65%; }
+  height: 65%;
+  min-width: 100%; }
