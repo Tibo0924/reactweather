@@ -4,10 +4,10 @@ import './style.css'
 
 const TodaysComp = (props) => (
   <div className="TodaysComp">
-    <p>in<span className="cityName"> {props.city}</span></p>
-    <p>the current temperature is <span className="temp">{props.temperature} &deg;C</span></p>
-    <p>with <span className="temp">{props.humidity}%</span>humidity.</p>
-    <p>{props.error}</p>
+    <p><span className="cityName"> {props.city}</span></p>
+    <p><span className="temp">{props.temperature} &deg;C</span></p>
+    <p><span className="temp">{props.humidity}%</span>humidity.</p>
+    <p>{props.error && props.error}</p>
   </div>
 );
 
