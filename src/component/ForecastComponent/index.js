@@ -1,37 +1,31 @@
 import React from 'react';
 import './style.css'
 
-// #1 get openweather API
-// #2 build carousel
 
-// functional component lesz
-class ForecastComponent extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        forecast: [],
+const Card = (props) => {
+
+  return (
+    <div className="card">
+      <p>{props.dt_txt.slice(0,-3)}</p>
+      <p>{props.main.temp}</p>
+      <p>{props.weather[0].description}</p>
+      <img src={`http://openweathermap.org/img/w/${props.weather[0].icon}.png`} alt=""/>
+    </div>
+  )
+}
+
+
+const ForecastComponent = (props) => {
+  console.log(props)  
+  return (
+    <div className="ForecastComponent">
+      {
+        props.list && props.list.map( ForecastObject => (
+          <Card {...ForecastObject} />
+        ))
       }
-    }
-    
-    
-    // atmegy az APPba
-    getForecast = (latitude, longitude) => {
-      fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?${latitude}&${longitude}&appid=e3a7c7ce72b0e8bcd9f70694cbfea8cf`
-        )
-        .then(data => data.json())
-        .then(data => console.log(data));
-    }
-
-    
-    render() {
-      return (
-        // mappelj
-      <div className="ForecastComponent">
-        <h2> ForeCastComponent </h2>
-
-      </div>
-      )
-    }
+    </div>
+    )
   }
+      
     export default ForecastComponent
