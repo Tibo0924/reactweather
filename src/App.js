@@ -18,27 +18,19 @@ class App extends Component {
           description: null
         },
         forecast: {
-          temp: null,
-          date: null,
-          description: null,
-          icon: null
+          list: null,
         }
       },
-      error: null
+      error: ""
     };
     this.API_KEY = process.env.REACT_APP_WEATHER_API_KEY
   }
-
-  componentDidMount(){
-    
+  
+  getWeatherGPS = (latitude,longitude) => {
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?${latitude}&${longitude}&appid=${this.API_KEY}`)
+      .then(data => data.json())
+      .then(data => this.handleResponse(data))
   }
-
-  getWeatherGPS = () => {
-    fetch()
-      .then()
-      .then()
-  }
-
   getWeather = e => {
     e.preventDefault();
     const city = e.target.elements.city.value;
@@ -50,44 +42,57 @@ class App extends Component {
     
   handleResponse = (data, city) => {
     if (data.cod === '200') {
-      // new state structure
+      console.log(data)
       this.setState({
-          city: data.city.name,
-          temperature: data.list[0].main.temp,
-          humidity: data.list[0].main.humidity,
-          description: data.list[0].weather[0].main,
-          error: "",
+        weather:{
+          today:{
+            city: data.city.name,
+            temperature: data.list[0].main.temp,
+            humidity: data.list[0].main.humidity,
+            description: data.list[0].weather[0].main,
+          },
+          forecast:{
+            list: data.list,
+          },
+          error:"",
+
         },
-      );
+      })
     } else {
       this.setState({
-        temperature: null,
-        city: null,
-        humidity: null,
-        description: null,
-        error: `There is no ${city} `
-      });
-    }
+        error: 'No such city in our database',
+    })
     console.log(data)
-  };
+  }
+}
+  
 
   render() {
+    const today = this.state.weather.today
+    const forecast = this.state.weather.forecast
     return (
       <div className="App">
         <div className="top-row">
           <LocationComp getWeather={this.getWeather}/>
           <QuoteComp />
           <TodaysComp
-            temperature={this.state.temperature}
-            city={this.state.city}
-            humidity={this.state.humidity}
+            temperature={today.temperature}
+            city={today.city}
+            humidity={today.humidity}
             error={this.state.error}
           />
-        </div>
-       <ForecastComponent />
+         </div>
+          <ForecastComponent
+            list={forecast.list}
+            temperature={forecast.temp}
+            date={forecast.data}
+            icon={forecast.icon}
+            description={forecast.description}
+          />
       </div>
     );
   }
 }
+
 
 export default App;
