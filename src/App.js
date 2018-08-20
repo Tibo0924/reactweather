@@ -26,11 +26,7 @@ class App extends Component {
     this.API_KEY = process.env.REACT_APP_WEATHER_API_KEY
   }
   
-  getWeatherGPS = (latitude,longitude) => {
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?${latitude}&${longitude}&appid=${this.API_KEY}`)
-      .then(data => data.json())
-      .then(data => this.handleResponse(data))
-  }
+  
   getWeather = e => {
     e.preventDefault();
     const city = e.target.elements.city.value;
@@ -38,9 +34,11 @@ class App extends Component {
       .then(data => data.json())
       .then(data => this.handleResponse(data, city))
       .catch(err => console.log(err));
+      document.forms[0].reset()
     };
-    
-  handleResponse = (data, city) => {
+   
+  
+   handleResponse = (data, city) => {
     if (data.cod === '200') {
       console.log(data)
       this.setState({
@@ -64,7 +62,7 @@ class App extends Component {
     })
     console.log(data)
   }
-}
+  }
   
 
   render() {
