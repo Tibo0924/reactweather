@@ -43,14 +43,14 @@ class QuoteComp extends Component {
   render() {
     return ( 
       <div className="QuoteComponent">
-        <p className="time">{this.state.curTime}</p>
+        <div className="time">{this.state.curTime}</div>
         <div 
           className="quoteContainer" 
           dangerouslySetInnerHTML={{__html: this.state.quote}}
           >
         </div>
           <p>{this.state.title}</p>
-          <button onClick={this.fetchQuote}>Fetch new</button>
+          <button onClick={this.fetchQuote}>+</button>
       </div>
     )
   }  
