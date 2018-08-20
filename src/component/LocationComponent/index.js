@@ -9,28 +9,39 @@ class LocationComp extends Component {
       latitude: null,
       longitude: null
     }
+    this.API_KEY = process.env.REACT_APP_WEATHER_API_KEY
   }
-
-  getPermission = () => {
+  // ask for user permission to get current location
+  getPermission = (props) => {
     if (confirm('Ok to know where you are?')){
+      // checking for geolocation && set it to state
       const location = window.navigator && window.navigator.geolocation
       location.getCurrentPosition(function (position) {
-          let latitude = position.coords.latitude;
-          let longitude= position.coords.longitude;
-          console.log(latitude);
-          console.log(longitude);
-          this.setState({
-             latitude: latitude, 
-             longitude: longitude
-          }); 
-          // TODO: getWeatherGPS function
-      }.bind(this)); 
-    } else {
-      console.log('no')
+        const latitude = position.coords.latitude;
+        const longitude= position.coords.longitude;
+        this.setState({
+          latitude: latitude,
+          longitude: longitude
+        }); 
+      }.bind(this))
+    }else {
+        this.setState({
+          latitude: `don't have permission`,
+          longitude: `don't have permission`
+        })
     }
+    this.getWeatherGPS(props)
   }
 
-  render() {
+  getWeatherGPS = (props) => {  
+    console.log(this.state.latitude,'latitude')
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat={${props.latitude}}&lon={${props.longitude}}&appid=9da3d7bbfb62bb8e330dcbbe788ce42d
+    `)
+      .then(data => data.json())
+      .then(data => console.log(data))
+  }
+
+  render() {    
     return (
         <div className="LocationComp">
           <form onSubmit={this.props.getWeather}>
