@@ -1,93 +1,96 @@
 import React, { Component } from 'react';
-import Title from './component/Header/Title';
-import Form from './component/Header/Form';
-import Weather from './component/Body/Weather';
+import QuoteComp from './component/QuoteComponent/';
+import LocationComp from './component/LocationComponent/';
+import TodaysComp from './component/TodaysComponent/';
+import ForecastComponent from './component/ForecastComponent'
 import './App.css';
-
-const API_KEY = "e3a7c7ce72b0e8bcd9f70694cbfea8cf";
 
 class App extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      temperature: null,
-      city: null,
-      country: null,
-      humidity: null,
-      description: null,
-      error: null,
-      showTitle: true,
-      curTime: null
+      weather: {
+        today: {
+          temperature: null,
+          city: null,
+          country: null,
+          humidity: null,
+          description: null
+        },
+        forecast: {
+          list: null,
+        }
+      },
+      error: ""
     };
+    this.API_KEY = process.env.REACT_APP_WEATHER_API_KEY
   }
-//
-  getWeather2 = e => {
+  
+  
+  getWeather = e => {
     e.preventDefault();
     const city = e.target.elements.city.value;
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
-    )
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${this.API_KEY}&units=metric`)
       .then(data => data.json())
       .then(data => this.handleResponse(data, city))
       .catch(err => console.log(err));
+      document.forms[0].reset()
     };
-    
-    handleResponse = (data, city) => {
-      if (data.cod === 200) {
-        this.setState(
-          {
-            temperature: data.main.temp,
-            city: data.name,
-            humidity: data.main.humidity,
-            description: data.weather[0].description,
-            error: ""
+   
+  
+   handleResponse = (data, city) => {
+    if (data.cod === '200') {
+      console.log(data)
+      this.setState({
+        weather:{
+          today:{
+            city: data.city.name,
+            temperature: data.list[0].main.temp,
+            humidity: data.list[0].main.humidity,
+            description: data.list[0].weather[0].main,
           },
-        this.ShowTitle()
-      );
+          forecast:{
+            list: data.list,
+          },
+          error:"",
+
+        },
+      })
     } else {
       this.setState({
-        temperature: null,
-        city: null,
-        humidity: null,
-        description: null,
-        showTitle: false,
-        error: `There is no ${city} `
-      });
-    }
+        error: 'No such city in our database',
+    })
     console.log(data)
-  };
-
-  ShowTitle() {
-    this.setState({
-      showTitle: false
-    });
   }
-
-  componentWillMount() {
-    setInterval(
-      function() {
-        this.setState({
-          curTime: new Date().toLocaleTimeString()
-        });
-      }.bind(this),
-      1000
-    );
   }
+  
 
   render() {
+    const today = this.state.weather.today
+    const forecast = this.state.weather.forecast
     return (
       <div className="App">
-        {this.state.showTitle && <Title curTime={this.state.curTime} />}
-        <Weather
-          temperature={this.state.temperature}
-          city={this.state.city}
-          humidity={this.state.humidity}
-          error={this.state.error}
-        />
-        {this.state.showTitle && <Form getWeather={this.getWeather} />}
+        <div className="top-row">
+          <LocationComp getWeather={this.getWeather}/>
+          <QuoteComp />
+          <TodaysComp
+            temperature={today.temperature}
+            city={today.city}
+            humidity={today.humidity}
+            error={this.state.error}
+          />
+         </div>
+          <ForecastComponent
+            list={forecast.list}
+            temperature={forecast.temp}
+            date={forecast.data}
+            icon={forecast.icon}
+            description={forecast.description}
+          />
       </div>
     );
   }
 }
+
 
 export default App;
