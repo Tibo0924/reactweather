@@ -1,0 +1,7 @@
+.TodaysComp {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  text-align: right; }
+  .TodaysComp p {
+    margin-right: 1rem; }
