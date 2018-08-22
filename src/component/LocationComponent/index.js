@@ -11,18 +11,18 @@ class LocationComp extends Component {
     }
     this.API_KEY = process.env.REACT_APP_WEATHER_API_KEY
   }
-  // ask for user permission to get current location
-  getPermission = (props) => {
+  
+  getPermission = () => {
     if (confirm('Ok to know where you are?')){
       // checking for geolocation && set it to state
       const location = window.navigator && window.navigator.geolocation
       location.getCurrentPosition(function (position) {
         const latitude = position.coords.latitude;
-        const longitude= position.coords.longitude;
+        const longitude = position.coords.longitude;
         this.setState({
-          latitude: latitude,
-          longitude: longitude
-        }); 
+        latitude: Number(latitude.toFixed(2)),
+        longitude: Number(longitude.toFixed(2)),
+      },() => this.getWeatherGPS());
       }.bind(this))
     }else {
         this.setState({
@@ -30,13 +30,13 @@ class LocationComp extends Component {
           longitude: `don't have permission`
         })
     }
-    this.getWeatherGPS(props)
   }
-
+ 
   getWeatherGPS = (props) => {  
-    console.log(this.state.latitude,'latitude')
-    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat={${props.latitude}}&lon={${props.longitude}}&appid=9da3d7bbfb62bb8e330dcbbe788ce42d
-    `)
+    console.log(props)
+    console.log(this.state.latitude)
+    console.log(typeof this.state.latitude)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat={${this.state.latitude}}&lon={${this.state.longitude}}&appid=9da3d7bbfb62bb8e330dcbbe788ce42d`)
       .then(data => data.json())
       .then(data => console.log(data))
   }
@@ -49,7 +49,7 @@ class LocationComp extends Component {
             <p>or check your current location</p>
             <button type="submit">Click here</button>
           </form>
-          <button className="toggleButton" onClick={this.getPermission}>Check</button>
+          <button onClick={this.getPermission}>Check</button>
         </div>
       )
     }
