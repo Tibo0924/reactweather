@@ -26,7 +26,27 @@ class App extends Component {
     this.API_KEY = process.env.REACT_APP_WEATHER_API_KEY
   }
   
-  
+  getPermission = (props) => {
+    if (window.confirm('Ok to know where you are?')){
+      // checking for geolocation && set it to state
+      const location = window.navigator && window.navigator.geolocation
+      location.getCurrentPosition(function (position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        this.setState({
+        latitude: Number(latitude.toFixed(2)),
+        longitude: Number(longitude.toFixed(2)),
+      },() => this.getWeatherGPS());
+      }.bind(this))
+    }else {
+        this.setState({
+          
+          latitude: `don't have permission`,
+          longitude: `don't have permission`
+        })
+    }
+  }
+  // getpermission
   getWeather = e => {
     e.preventDefault();
     const city = e.target.elements.city.value;
@@ -36,9 +56,14 @@ class App extends Component {
       .catch(err => console.log(err));
       document.forms[0].reset()
     };
+    getWeatherGPS = () => {  
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=9da3d7bbfb62bb8e330dcbbe788ce42d`)
+        .then(data => data.json())
+        .then(data => this.handleResponse(data))
+    }
    
   
-   handleResponse = (data, city) => {
+    handleResponse = (data, city) => {
     if (data.cod === '200') {
       console.log(data)
       this.setState({
@@ -71,7 +96,10 @@ class App extends Component {
     return (
       <div className="App">
         <div className="top-row">
-          <LocationComp getWeather={this.getWeather}/>
+          <LocationComp 
+            getWeather={this.getWeather}
+            getPermission={this.getPermission}
+          />
           <QuoteComp />
           <TodaysComp
             temperature={today.temperature}
