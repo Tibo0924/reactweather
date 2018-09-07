@@ -27,6 +27,15 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover; }
+  .App button {
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+    font-size: 12pt;
+    font-weight: lighter; }
+  .App button:hover {
+    background-color: #0000010e;
+    cursor: pointer; }
 
 .time {
   text-align: right;
