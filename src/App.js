@@ -56,14 +56,14 @@ class App extends Component {
       .catch(err => console.log(err));
       document.forms[0].reset()
     };
-    getWeatherGPS = () => {  
-      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=9da3d7bbfb62bb8e330dcbbe788ce42d`)
+  getWeatherGPS = () => {  
+      fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${this.state.latitude}&lon=${this.state.longitude}&appid=${this.API_KEY}&units=metric`)
         .then(data => data.json())
         .then(data => this.handleResponse(data))
-    }
-   
+  }
+
   
-    handleResponse = (data, city) => {
+  handleResponse = (data, city) => {
     if (data.cod === '200') {
       console.log(data)
       this.setState({
@@ -88,6 +88,7 @@ class App extends Component {
     console.log(data)
   }
   }
+
   
 
   render() {

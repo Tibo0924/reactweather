@@ -14,7 +14,7 @@ body {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  width: 100vw;
+  width: 500px;
   text-shadow: 2px 2px 4px #000000;
   height: 600px;
   /* background-color: #52B3D9; */
@@ -36,14 +36,6 @@ body {
   .App button:hover {
     background-color: #0000010e;
     cursor: pointer; }
-
-.time {
-  text-align: right;
-  padding-right: 1rem;
-  font-size: 15pt; }
-
-.LocationComp span:first-of-type {
-  padding-left: 7rem; }
 
 .temp {
   font-size: 14pt;
