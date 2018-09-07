@@ -3,10 +3,17 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  align-items: center; }
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12pt; }
+  .QuoteComponent .quoteContainer {
+    width: 400px;
+    display: flex;
+    height: 20%; }
   .QuoteComponent .time {
-    font-size: 46pt;
+    font-size: 41pt;
+    margin-top: auto;
+    margin-bottom: auto;
     font-family: 'open sans',arial,sans-serif; }
   .QuoteComponent .quoteContainer {
     align-items: center;
