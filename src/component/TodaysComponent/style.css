@@ -1,7 +1,10 @@
 .TodaysComp {
   display: flex;
+  justify-content: flex-end;
   flex-direction: column;
   width: 33%;
   text-align: right; }
-  .TodaysComp p {
-    margin-right: 1rem; }
+  .TodaysComp .cityName {
+    color: steelblue; }
+  .TodaysComp .temp {
+    font-size: 18pt; }
