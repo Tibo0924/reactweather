@@ -50,7 +50,7 @@ class QuoteComp extends Component {
           >
         </div>
           <p>{this.state.title}</p>
-          <button onClick={this.fetchQuote}>+</button>
+          <button onClick={this.fetchQuote}>More quotes!</button>
       </div>
     )
   }  

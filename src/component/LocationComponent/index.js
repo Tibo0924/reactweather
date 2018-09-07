@@ -7,10 +7,14 @@ const LocationComp = (props)=> {
   <div className="LocationComp">
     <form onSubmit={props.getWeather}>
       <input type="text" name="city" placeholder="city" />
-      <p>or check your current location</p>
-      <button type="submit">Click here</button>
+      <button type="submit">Submit</button>
     </form>
-    <button onClick={props.getPermission}>Check</button>
+    <div>
+    <p>or check your current location</p>
+    <button onClick={props.getPermission}>Location</button>
+
+    </div>
+
   </div>
   )
 
